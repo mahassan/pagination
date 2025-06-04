@@ -1,17 +1,46 @@
 const container = document.querySelector(".container");
 const pagination = document.querySelector(".pagination");
-function createButton(item){
-  const makeEven = item + 1;
-   for(let i = 1; i <= makeEven; i++){
-     if(item % 2 !== 0){
-      pagination.innerHTML += `<button>${i}</button>`
-     }else{
-      pagination.innerHTML += `<button>${i}</button>`
-     }
-   }
-}
 let base_url;
 let poster_sizes;
+let movies;
+
+function createButton(item) {
+  const makeEven = item + 1;
+  for (let i = 1; i <= makeEven; i++) {
+    if (item % 2 !== 0) {
+      buttonHTML(i);
+    } else {
+      buttonHTML(i);
+    }
+  }
+}
+function buttonHTML(index) {
+  const button = document.createElement("button");
+  button.innerText = index;
+  button.addEventListener("click", (e) => {
+    //when click happens, depending on the click the items of displayed movies will show
+    //next the set
+    for (let i = 0; i <= 10; i++) {
+      container.innerHTML += `
+                    <div class="movie-box">
+                     <img src=${
+                       base_url + poster_sizes[3] + movies[i].poster_path
+                     } />
+                     <h3>${movies[i].title}</h3>
+                    </div>
+            `;
+            i+=10;
+    }
+
+    const element = e.target;
+    if (element.classList.contains("selected")) {
+      element.classList.remove("selected");
+    } else {
+      element.classList.add("selected");
+    }
+  });
+  pagination.appendChild(button);
+}
 async function config() {
   const url = await "https://api.themoviedb.org/3/configuration";
   const options = {
@@ -46,18 +75,10 @@ async function config() {
         .then((res) => res.json())
         .then((json) => {
           const { results } = json;
-          const resultsCount = results.length;
+          const resultsCount = results.length / 10;
+          movies = results;
           createButton(resultsCount);
-          for (let i = 0; i <= 10; i++) {
-            container.innerHTML += `
-                    <div class="movie-box">
-                     <img src=${
-                       base_url + poster_sizes[3] + results[i].poster_path
-                     } />
-                     <h3>${results[i].title}</h3>
-                    </div>
-            `;
-          }
+          moviesHTML(results);
         })
         .catch((err) => console.error(err));
     })
@@ -65,3 +86,15 @@ async function config() {
 }
 
 config();
+function moviesHTML(results) {
+  for (let i = 0; i <= 10; i++) {
+    container.innerHTML += `
+                    <div class="movie-box">
+                     <img src=${
+                       base_url + poster_sizes[3] + results[i].poster_path
+                     } />
+                     <h3>${results[i].title}</h3>
+                    </div>
+            `;
+  }
+}
