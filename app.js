@@ -20,7 +20,9 @@ function buttonHTML(index) {
   button.addEventListener("click", (e) => {
     //when click happens, depending on the click the items of displayed movies will show
     //next the set
-    for (let i = 0; i <= 10; i++) {
+    console.log(movies.length)
+    for (let i = 10; i <= movies.length; i++) {
+      container.innerHTML = '';
       container.innerHTML += `
                     <div class="movie-box">
                      <img src=${
@@ -47,8 +49,6 @@ async function config() {
     method: "GET",
     headers: {
       accept: "application/json",
-      Authorization:
-        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkOGMyNTUyZjIxYTNjMzM5YjRiYzhjZDUxNjA2NjI0YyIsIm5iZiI6MTU4ODkzMjg1MC4yOCwic3ViIjoiNWViNTMwZjJlMzc1YzAwMDIyZmJkMWFmIiwic2NvcGVzIjpbImFwaV9yZWFkIl0sInZlcnNpb24iOjF9.6F6pJqw4wr1ofovqE3eeQyL62PJEwuCyXNnohs1dcWk",
     },
   };
 
@@ -66,9 +66,7 @@ async function config() {
         method: "GET",
         headers: {
           accept: "application/json",
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkOGMyNTUyZjIxYTNjMzM5YjRiYzhjZDUxNjA2NjI0YyIsIm5iZiI6MTU4ODkzMjg1MC4yOCwic3ViIjoiNWViNTMwZjJlMzc1YzAwMDIyZmJkMWFmIiwic2NvcGVzIjpbImFwaV9yZWFkIl0sInZlcnNpb24iOjF9.6F6pJqw4wr1ofovqE3eeQyL62PJEwuCyXNnohs1dcWk",
-        },
+    },
       };
 
       fetch(url, options)
