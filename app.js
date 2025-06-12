@@ -3,6 +3,7 @@ const pagination = document.querySelector(".pagination");
 let base_url;
 let poster_sizes;
 let movies;
+let page = 1;
 
 function createButton(item) {
   const makeEven = item + 1;
@@ -20,26 +21,14 @@ function buttonHTML(index) {
   button.addEventListener("click", (e) => {
     //when click happens, depending on the click the items of displayed movies will show
     //next the set
-    console.log(movies.length)
-    for (let i = 10; i <= movies.length; i++) {
-      container.innerHTML = '';
-      container.innerHTML += `
-                    <div class="movie-box">
-                     <img src=${
-                       base_url + poster_sizes[3] + movies[i].poster_path
-                     } />
-                     <h3>${movies[i].title}</h3>
-                    </div>
-            `;
-            i+=10;
-    }
-
+    //console.log(movies.length)
+    page +=1;
     const element = e.target;
-    if (element.classList.contains("selected")) {
-      element.classList.remove("selected");
-    } else {
-      element.classList.add("selected");
-    }
+    // if (element.classList.contains("selected")) {
+    //   element.classList.remove("selected");
+    // } else {
+    //   element.classList.add("selected");
+    // }
   });
   pagination.appendChild(button);
 }
@@ -49,6 +38,8 @@ async function config() {
     method: "GET",
     headers: {
       accept: "application/json",
+      Authorization:
+        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkOGMyNTUyZjIxYTNjMzM5YjRiYzhjZDUxNjA2NjI0YyIsIm5iZiI6MTU4ODkzMjg1MC4yOCwic3ViIjoiNWViNTMwZjJlMzc1YzAwMDIyZmJkMWFmIiwic2NvcGVzIjpbImFwaV9yZWFkIl0sInZlcnNpb24iOjF9.6F6pJqw4wr1ofovqE3eeQyL62PJEwuCyXNnohs1dcWk",
     },
   };
 
@@ -61,12 +52,14 @@ async function config() {
     })
     .then(() => {
       const url =
-        "https://api.themoviedb.org/3/trending/movie/day?language=en-US";
+        `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=${page}&sort_by=popularity.des`;
       const options = {
         method: "GET",
         headers: {
           accept: "application/json",
-    },
+          Authorization:
+            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkOGMyNTUyZjIxYTNjMzM5YjRiYzhjZDUxNjA2NjI0YyIsIm5iZiI6MTU4ODkzMjg1MC4yOCwic3ViIjoiNWViNTMwZjJlMzc1YzAwMDIyZmJkMWFmIiwic2NvcGVzIjpbImFwaV9yZWFkIl0sInZlcnNpb24iOjF9.6F6pJqw4wr1ofovqE3eeQyL62PJEwuCyXNnohs1dcWk",
+        },
       };
 
       fetch(url, options)
