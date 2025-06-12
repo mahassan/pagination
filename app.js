@@ -36,11 +36,6 @@ async function config() {
   const url = await "https://api.themoviedb.org/3/configuration";
   const options = {
     method: "GET",
-    headers: {
-      accept: "application/json",
-      Authorization:
-        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkOGMyNTUyZjIxYTNjMzM5YjRiYzhjZDUxNjA2NjI0YyIsIm5iZiI6MTU4ODkzMjg1MC4yOCwic3ViIjoiNWViNTMwZjJlMzc1YzAwMDIyZmJkMWFmIiwic2NvcGVzIjpbImFwaV9yZWFkIl0sInZlcnNpb24iOjF9.6F6pJqw4wr1ofovqE3eeQyL62PJEwuCyXNnohs1dcWk",
-    },
   };
 
   fetch(url, options)
@@ -55,11 +50,6 @@ async function config() {
         `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=${page}&sort_by=popularity.des`;
       const options = {
         method: "GET",
-        headers: {
-          accept: "application/json",
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkOGMyNTUyZjIxYTNjMzM5YjRiYzhjZDUxNjA2NjI0YyIsIm5iZiI6MTU4ODkzMjg1MC4yOCwic3ViIjoiNWViNTMwZjJlMzc1YzAwMDIyZmJkMWFmIiwic2NvcGVzIjpbImFwaV9yZWFkIl0sInZlcnNpb24iOjF9.6F6pJqw4wr1ofovqE3eeQyL62PJEwuCyXNnohs1dcWk",
-        },
       };
 
       fetch(url, options)
